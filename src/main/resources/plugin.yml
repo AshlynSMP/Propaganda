@@ -1,0 +1,17 @@
+name: Propaganda
+version: '${project.version}'
+main: nl.ashlyn.propaganda.Propaganda
+api-version: 1.21
+authors: [ Ashlyn, Elisa ]
+commands:
+  plugins:
+    description: Lists all plugins authored by Ashlyn.
+    usage: /ashlynplugins
+  wapenstilstand:
+    description: Zet pvp uit.
+    usage: /wapenstilstand
+  broadcast:
+    aliases: [bc]
+  lore:
+    description: Zet lore mode aan.
+    usage: /lore
