@@ -2,6 +2,7 @@ package nl.ashlyn.propaganda.commands;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -88,7 +89,10 @@ public class LoreCommand implements CommandExecutor, Listener {
         toggleLore();
 
         if (isLoreEnabled()) {
-            Bukkit.broadcastMessage(ChatColor.GREEN + "Lore mode is geactiveerd door " + player.getName());
+            Bukkit.broadcastMessage(ChatColor.GREEN + "Lore mode is geactiveerd door " + player.getName() + " zorg ervoor dat je de proximity chat gebruikt.");
+            for (Player allPlayers: Bukkit.getOnlinePlayers()){
+                allPlayers.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN, 1, 1);
+            }
         } else {
             Bukkit.broadcastMessage(ChatColor.RED + "Lore mode is uitgezet door " + player.getName());
         }
