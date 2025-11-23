@@ -23,12 +23,10 @@ public class PvPListener implements Listener {
     public void onPlayerPvPAttempt(EntityDamageByEntityEvent event) {
         if (WapenstilstandCommand.isPvPDisabled && event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
             Player attacker = (Player) event.getDamager();
-            Player victim = (Player) event.getEntity();
 
             event.setCancelled(true);
 
             attacker.sendMessage(ChatColor.RED + "PvP is momenteel uitgeschakeld! Er is een wapenstilstand actief.");
-            victim.sendMessage(ChatColor.GREEN + "Je bent veilig! PvP is uitgeschakeld door de wapenstilstand.");
         }
     }
 }

@@ -6,16 +6,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Created by Ashlyn on 12/10/2024
  */
-public class PlayerJoinListener implements Listener {
+public class PlayerJoinLeaveListener implements Listener {
 
     private final JavaPlugin plugin;
 
-    public PlayerJoinListener(JavaPlugin plugin) {
+    public PlayerJoinLeaveListener(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -24,10 +25,19 @@ public class PlayerJoinListener implements Listener {
         Player player = event.getPlayer();
         LoreCommand.updatePlayerDisplayName(player);
 
+        event.setJoinMessage(ChatColor.GREEN + "[+] " + player.getName());
+
         if (LoreCommand.isLoreEnabled) {
             player.sendMessage(ChatColor.RED + "+=========================================+");
             player.sendMessage(ChatColor.RED + "Lore mode is actief. Blijf in je rol!");
             player.sendMessage(ChatColor.RED + "+=========================================+");
         }
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+
+        event.setQuitMessage(ChatColor.RED + "[-] " + player.getName());
     }
 }

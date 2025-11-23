@@ -49,7 +49,7 @@ public class LoreCommand implements CommandExecutor, Listener {
         }
 
         if (isLoreEnabled) {
-            String modifiedName = ChatColor.GOLD + "c!" + player.getName();
+            String modifiedName = ChatColor.GOLD + "c!" + ChatColor.GOLD + player.getName();
             player.setDisplayName(modifiedName);
             player.setPlayerListName(modifiedName);
 
@@ -57,7 +57,7 @@ public class LoreCommand implements CommandExecutor, Listener {
             Team team = scoreboard.getTeam("lorePrefix");
             if (team == null) {
                 team = scoreboard.registerNewTeam("lorePrefix");
-                team.setPrefix(ChatColor.GOLD + "c!");
+                team.setPrefix(ChatColor.GOLD + "c!" + ChatColor.GOLD);
             }
             team.addEntry(player.getName());
         } else {
