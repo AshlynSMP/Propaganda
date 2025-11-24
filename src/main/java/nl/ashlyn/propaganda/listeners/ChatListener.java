@@ -1,13 +1,16 @@
 package nl.ashlyn.propaganda.listeners;
 
+import nl.ashlyn.propaganda.commands.LoreCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.Team;
 
+/**
+ * Created by Ashlyn on 11/24/2025
+ */
 public class ChatListener implements Listener {
 
     private final JavaPlugin plugin;
@@ -18,17 +21,21 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
-        String message = event.getMessage();
-        String prefix = "";
-
-        if (player.getScoreboard() != null) {
-            Team team = player.getScoreboard().getEntryTeam(player.getName());
-            if (team != null) {
-                prefix = team.getPrefix();
-            }
+        // if both towers are offline and lore mode is enabled, cancel chat silently
+        boolean t1 = plugin.getConfig().getBoolean("tower-1", true);
+        boolean t2 = plugin.getConfig().getBoolean("tower-2", true);
+        if (!t1 && !t2 && LoreCommand.isLoreEnabled) {
+            event.setCancelled(true);
+            return;
         }
 
-        event.setFormat(prefix + player.getName() + ChatColor.RESET + ": " + message);
+        Player player = event.getPlayer();
+        String message = event.getMessage();
+
+        if (LoreCommand.isLoreEnabled) {
+            event.setFormat(ChatColor.GOLD + "[Radio] " + player.getName() + " >>> " + ChatColor.RESET + message);
+        } else {
+            event.setFormat(player.getName() + ": " + message);
+        }
     }
 }

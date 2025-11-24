@@ -23,7 +23,6 @@ public class PlayerJoinLeaveListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        LoreCommand.updatePlayerDisplayName(player);
 
         event.setJoinMessage(ChatColor.GREEN + "[+] " + player.getName());
 

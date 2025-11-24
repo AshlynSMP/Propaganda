@@ -2,11 +2,8 @@ package nl.ashlyn.propaganda;
 
 import nl.ashlyn.propaganda.commands.BroadcastCommand;
 import nl.ashlyn.propaganda.commands.LoreCommand;
-import nl.ashlyn.propaganda.commands.PluginsCommand;
 import nl.ashlyn.propaganda.commands.WapenstilstandCommand;
-import nl.ashlyn.propaganda.listeners.ChatListener;
-import nl.ashlyn.propaganda.listeners.PlayerJoinLeaveListener;
-import nl.ashlyn.propaganda.listeners.PvPListener;
+import nl.ashlyn.propaganda.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,7 +18,6 @@ public final class Propaganda extends JavaPlugin {
 
         saveDefaultConfig();
 
-        this.getCommand("plugins").setExecutor(new PluginsCommand());
         this.getCommand("wapenstilstand").setExecutor(new WapenstilstandCommand(this));
         this.getCommand("broadcast").setExecutor(new BroadcastCommand());
         this.getCommand("lore").setExecutor(new LoreCommand(this));
@@ -29,10 +25,13 @@ public final class Propaganda extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChatListener(this), this);
         getServer().getPluginManager().registerEvents(new PvPListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinLeaveListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteract(this), this);
+        getServer().getPluginManager().registerEvents(new SignChange(this), this);
         getServer().getPluginManager().registerEvents(new LoreCommand(this), this);
 
         Propaganda.log(ChatColor.RED + "+=========================================+" + ChatColor.RESET);
-        Propaganda.log(ChatColor.RED + "Propaganda Initiated!" + ChatColor.RESET + ChatColor.RED + " (Build: " + getDescription().getVersion() + ")" + ChatColor.RESET);
+        Propaganda.log(ChatColor.RED + "Propaganda Initiated!" + ChatColor.RESET + ChatColor.RED + " (Build: v" + getDescription().getVersion() + ")" + ChatColor.RESET);
         Propaganda.log(ChatColor.RED + "+=========================================+" + ChatColor.RESET);
 
     }
@@ -40,7 +39,7 @@ public final class Propaganda extends JavaPlugin {
     @Override
     public void onDisable() {
         Propaganda.log(ChatColor.RED + "+=========================================+" + ChatColor.RESET);
-        Propaganda.log(ChatColor.RED + "Propaganda Disabled!" + ChatColor.RESET + ChatColor.RED + " (Build: " + getDescription().getVersion() + ")" + ChatColor.RESET);
+        Propaganda.log(ChatColor.RED + "Propaganda Disabled!" + ChatColor.RESET + ChatColor.RED + " (Build: v" + getDescription().getVersion() + ")" + ChatColor.RESET);
         Propaganda.log(ChatColor.RED + "+=========================================+" + ChatColor.RESET);
     }
 
