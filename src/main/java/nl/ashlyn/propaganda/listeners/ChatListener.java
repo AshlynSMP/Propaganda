@@ -21,9 +21,8 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
-        // if both towers are offline and lore mode is enabled, cancel chat silently
-        boolean t1 = plugin.getConfig().getBoolean("tower-1", true);
-        boolean t2 = plugin.getConfig().getBoolean("tower-2", true);
+        boolean t1 = plugin.getConfig().getBoolean("tower-oost", true);
+        boolean t2 = plugin.getConfig().getBoolean("tower-west", true);
         if (!t1 && !t2 && LoreCommand.isLoreEnabled) {
             event.setCancelled(true);
             return;

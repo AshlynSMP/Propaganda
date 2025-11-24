@@ -22,24 +22,21 @@ public class SignChange implements Listener {
 
     @EventHandler
     public void onSignChange(SignChangeEvent event) {
-        Player player = event.getPlayer();
         Block b = event.getBlock();
         if (b.getType().equals(Material.OAK_SIGN) ||
                 b.getType().equals(Material.OAK_WALL_SIGN)) {
             String l0 = event.getLine(0);
             if (l0.equalsIgnoreCase("[radio]")) {
-                String towerNumber = event.getLine(1).toLowerCase().trim();
+                String towerName = event.getLine(1).toLowerCase().trim();
                 event.setLine(0, PlayerInteract.radioTower);
+                event.setLine(1, ChatColor.BLUE + towerName.toUpperCase());
 
-                boolean enabled = plugin.getConfig().getBoolean("tower-" + towerNumber, true);
+                boolean enabled = plugin.getConfig().getBoolean("tower-" + towerName, true);
                 if (enabled) {
-                    event.setLine(1, ChatColor.GREEN + "Online");
+                    event.setLine(3, ChatColor.GREEN + "Online");
                 } else {
-                    event.setLine(1, ChatColor.RED + "Offline");
+                    event.setLine(3, ChatColor.RED + "Offline");
                 }
-
-                // store the tower id on line 2
-                event.setLine(2, towerNumber);
             }
         }
     }
