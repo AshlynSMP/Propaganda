@@ -3,6 +3,8 @@ package nl.ashlyn.propaganda.listeners;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,10 +32,16 @@ public class PlayerInteract implements Listener {
         Action action = event.getAction();
 
         if (action.equals(Action.LEFT_CLICK_BLOCK) && event.getClickedBlock() != null) {
-            Material type = event.getClickedBlock().getType();
-            if (type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN)) {
-                Sign s = (Sign) event.getClickedBlock().getState();
+
+            Block signBlock = event.getClickedBlock();
+            Material type = signBlock.getType();
+
+            if (type == Material.OAK_SIGN || type == Material.OAK_WALL_SIGN) {
+
+                Sign s = (Sign) signBlock.getState();
+
                 if (s.getLine(0).equals(radioTower)) {
+                    Block powerBlock = signBlock.getRelative(BlockFace.DOWN, 2);
                     String towerName = ChatColor.stripColor(s.getLine(1)).toLowerCase().trim();
 
                     boolean online = plugin.getConfig().getBoolean("tower-" + towerName, true);
@@ -42,9 +50,13 @@ public class PlayerInteract implements Listener {
                     plugin.saveConfig();
 
                     if (online) {
+                        powerBlock.setType(Material.AIR);
+                        player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
                         s.setLine(3, ChatColor.GREEN + "Online");
                         player.sendMessage(ChatColor.GREEN + "Radio toren " + towerName + " is nu online.");
                     } else {
+                        powerBlock.setType(Material.REDSTONE_BLOCK);
+                        player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 1.0f);
                         s.setLine(3, ChatColor.RED + "Offline");
                         player.sendMessage(ChatColor.RED + "Radio toren " + towerName + " is nu offline.");
                     }
@@ -52,10 +64,11 @@ public class PlayerInteract implements Listener {
 
                     boolean t1 = plugin.getConfig().getBoolean("tower-oost", true);
                     boolean t2 = plugin.getConfig().getBoolean("tower-west", true);
+
                     if (!t1 && !t2) {
-                        plugin.getServer().broadcastMessage(ChatColor.RED + "Both radio towers are offline.");
+                        plugin.getServer().broadcastMessage(ChatColor.RED + "Allebei de radio torens zijn offline! Je kunt nu de radio niet meer gebruiken!");
                         for (Player p : plugin.getServer().getOnlinePlayers()) {
-                            p.playSound(p.getLocation(), Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, 1.0f, 1.0f);
+                            p.playSound(p.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 1.0f);
                         }
                     }
                 }

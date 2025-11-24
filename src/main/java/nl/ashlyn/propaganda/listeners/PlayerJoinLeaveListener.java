@@ -31,6 +31,13 @@ public class PlayerJoinLeaveListener implements Listener {
             player.sendMessage(ChatColor.RED + "Lore mode is actief. Blijf in je rol!");
             player.sendMessage(ChatColor.RED + "+=========================================+");
         }
+
+        boolean t1 = plugin.getConfig().getBoolean("tower-oost", true);
+        boolean t2 = plugin.getConfig().getBoolean("tower-west", true);
+
+        if (!t1 && !t2 && LoreCommand.isLoreEnabled) {
+            player.sendMessage(ChatColor.RED + "Allebei de radio torens zijn offline! Je kunt de radio nu niet meer!");
+        }
     }
 
     @EventHandler

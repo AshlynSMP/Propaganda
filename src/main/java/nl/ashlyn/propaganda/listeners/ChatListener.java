@@ -33,8 +33,6 @@ public class ChatListener implements Listener {
 
         if (LoreCommand.isLoreEnabled) {
             event.setFormat(ChatColor.GOLD + "[Radio] " + player.getName() + " >>> " + ChatColor.RESET + message);
-        } else {
-            event.setFormat(player.getName() + ": " + message);
         }
     }
 }

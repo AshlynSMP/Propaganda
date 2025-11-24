@@ -2,6 +2,7 @@ package nl.ashlyn.propaganda.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,6 +24,8 @@ public class SignChange implements Listener {
     @EventHandler
     public void onSignChange(SignChangeEvent event) {
         Block b = event.getBlock();
+        Player player = event.getPlayer();
+
         if (b.getType().equals(Material.OAK_SIGN) ||
                 b.getType().equals(Material.OAK_WALL_SIGN)) {
             String l0 = event.getLine(0);
@@ -33,8 +36,10 @@ public class SignChange implements Listener {
 
                 boolean enabled = plugin.getConfig().getBoolean("tower-" + towerName, true);
                 if (enabled) {
+                    player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
                     event.setLine(3, ChatColor.GREEN + "Online");
                 } else {
+                    player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 1.0f);
                     event.setLine(3, ChatColor.RED + "Offline");
                 }
             }
