@@ -3,6 +3,7 @@ version: '${project.version}'
 main: nl.ashlyn.propaganda.Propaganda
 api-version: 1.21
 authors: [ Ashlyn, Elisa ]
+depend: [ voicechat ]
 commands:
   wapenstilstand:
     description: Zet pvp uit.

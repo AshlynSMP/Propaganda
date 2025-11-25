@@ -36,7 +36,7 @@ public class PlayerJoinLeaveListener implements Listener {
         boolean t2 = plugin.getConfig().getBoolean("tower-west", true);
 
         if (!t1 && !t2 && LoreCommand.isLoreEnabled) {
-            player.sendMessage(ChatColor.RED + "Allebei de radio torens zijn offline! Je kunt de radio nu niet meer!");
+            player.sendMessage(ChatColor.RED + "Allebei de radio torens zijn offline! Je kunt de radio nu niet gebruiken!");
         }
     }
 

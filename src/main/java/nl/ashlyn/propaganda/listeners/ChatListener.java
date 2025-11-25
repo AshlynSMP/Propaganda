@@ -1,6 +1,7 @@
 package nl.ashlyn.propaganda.listeners;
 
 import nl.ashlyn.propaganda.commands.LoreCommand;
+import nl.ashlyn.propaganda.utils.TextScrambler;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +27,10 @@ public class ChatListener implements Listener {
         if (!t1 && !t2 && LoreCommand.isLoreEnabled) {
             event.setCancelled(true);
             return;
+        }
+
+        if (!t1 || !t2) {
+            event.setMessage(TextScrambler.scrambleLetters(event.getMessage()));
         }
 
         Player player = event.getPlayer();
