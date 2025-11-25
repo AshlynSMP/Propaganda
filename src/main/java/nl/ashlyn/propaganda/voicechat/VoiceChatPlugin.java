@@ -1,12 +1,15 @@
 package nl.ashlyn.propaganda.voicechat;
 
-import de.maxhenkel.voicechat.api.Group;
-import de.maxhenkel.voicechat.api.VoicechatApi;
-import de.maxhenkel.voicechat.api.VoicechatPlugin;
-import de.maxhenkel.voicechat.api.VoicechatServerApi;
+import de.maxhenkel.voicechat.api.*;
+import de.maxhenkel.voicechat.api.events.CreateGroupEvent;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
+import de.maxhenkel.voicechat.api.events.RemoveGroupEvent;
 import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent;
 import nl.ashlyn.propaganda.Propaganda;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Arrays;
 
 /**
  *  Created by Ashlyn on 25/11/2025
@@ -18,6 +21,14 @@ public class VoiceChatPlugin implements VoicechatPlugin {
     public static VoicechatServerApi getApi() {
         return api;
     }
+
+    public static String[] channels = {
+            "5.44 MHz",
+            "7.52 MHz",
+            "9.73 MHz",
+            "12.15 MHz",
+            "17.20 MHz"
+    };
 
     @Override
     public String getPluginId() {
@@ -32,27 +43,29 @@ public class VoiceChatPlugin implements VoicechatPlugin {
     @Override
     public void registerEvents(EventRegistration registration) {
         registration.registerEvent(VoicechatServerStartedEvent.class, this::onServerStarted, 100);
+        registration.registerEvent(CreateGroupEvent.class, this::onGroupCreated, 100);
     }
 
     public void onServerStarted(VoicechatServerStartedEvent event) {
         VoicechatServerApi api = event.getVoicechat();
 
-        String[] channels = {
-                "5.44 MHz",
-                "7.52 MHz",
-                "9.73 MHz",
-                "12.15 MHz",
-                "17.20 MHz"
-        };
-
         for (String name : channels) {
             Group group = api.groupBuilder()
                     .setPersistent(true)
                     .setName(name)
-                    .setType(Group.Type.ISOLATED)
+                    .setType(Group.Type.NORMAL)
                     .build();
 
             Propaganda.log("Created voicechat group: " + group.getName());
+        }
+    }
+
+    public void onGroupCreated(CreateGroupEvent event) {
+        String groupName = event.getGroup().getName();
+
+        if (!Arrays.asList(channels).contains(groupName)) {
+            event.cancel();
+            Propaganda.log("Cancelled creation of unauthorized group: " + groupName);
         }
     }
 }
