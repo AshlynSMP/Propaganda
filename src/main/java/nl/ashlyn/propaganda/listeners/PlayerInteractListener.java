@@ -16,11 +16,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  *  Created by Ashlyn on 24/11/2025
  */
-public class PlayerInteract implements Listener {
+public class PlayerInteractListener implements Listener {
 
     private final JavaPlugin plugin;
 
-    public PlayerInteract(JavaPlugin plugin) {
+    public PlayerInteractListener(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 

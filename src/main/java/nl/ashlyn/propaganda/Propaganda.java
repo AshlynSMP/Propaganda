@@ -26,8 +26,8 @@ public final class Propaganda extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PvPListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinLeaveListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
-        getServer().getPluginManager().registerEvents(new PlayerInteract(this), this);
-        getServer().getPluginManager().registerEvents(new SignChange(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
+        getServer().getPluginManager().registerEvents(new SignChangeListener(this), this);
         getServer().getPluginManager().registerEvents(new LoreCommand(this), this);
 
         Propaganda.log(ChatColor.RED + "+=========================================+" + ChatColor.RESET);

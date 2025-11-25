@@ -2,7 +2,6 @@ package nl.ashlyn.propaganda.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,11 +12,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  *  Created by Ashlyn on 24/11/2025
  */
-public class SignChange implements Listener {
+public class SignChangeListener implements Listener {
 
     private final JavaPlugin plugin;
 
-    public SignChange(JavaPlugin plugin) {
+    public SignChangeListener(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -31,7 +30,7 @@ public class SignChange implements Listener {
             String l0 = event.getLine(0);
             if (l0.equalsIgnoreCase("[radio]")) {
                 String towerName = event.getLine(1).toLowerCase().trim();
-                event.setLine(0, PlayerInteract.radioTower);
+                event.setLine(0, PlayerInteractListener.radioTower);
                 event.setLine(1, ChatColor.BLUE + towerName.toUpperCase());
 
                 boolean enabled = plugin.getConfig().getBoolean("tower-" + towerName, true);
