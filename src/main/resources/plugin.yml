@@ -2,7 +2,7 @@ name: Propaganda
 version: '${project.version}'
 main: nl.ashlyn.propaganda.Propaganda
 api-version: 1.21
-authors: [ Ashlyn, Elisa ]
+authors: [ ntnt ]
 depend: [ voicechat ]
 commands:
   wapenstilstand:

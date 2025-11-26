@@ -3,11 +3,9 @@ package nl.ashlyn.propaganda.voicechat;
 import de.maxhenkel.voicechat.api.*;
 import de.maxhenkel.voicechat.api.events.CreateGroupEvent;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
-import de.maxhenkel.voicechat.api.events.RemoveGroupEvent;
 import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent;
 import nl.ashlyn.propaganda.Propaganda;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
+import nl.ashlyn.propaganda.utils.Logger;
 
 import java.util.Arrays;
 
@@ -17,10 +15,6 @@ import java.util.Arrays;
 public class VoiceChatPlugin implements VoicechatPlugin {
 
     private static VoicechatServerApi api;
-
-    public static VoicechatServerApi getApi() {
-        return api;
-    }
 
     public static String[] channels = {
             "5.44 MHz",
@@ -56,7 +50,7 @@ public class VoiceChatPlugin implements VoicechatPlugin {
                     .setType(Group.Type.NORMAL)
                     .build();
 
-            Propaganda.log("Created voicechat group: " + group.getName());
+            Logger.log("Created voicechat group: " + group.getName());
         }
     }
 
@@ -65,7 +59,7 @@ public class VoiceChatPlugin implements VoicechatPlugin {
 
         if (!Arrays.asList(channels).contains(groupName)) {
             event.cancel();
-            Propaganda.log("Cancelled creation of unauthorized group: " + groupName);
+            Logger.log("Cancelled creation of unauthorized group: " + groupName);
         }
     }
 }

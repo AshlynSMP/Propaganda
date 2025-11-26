@@ -12,6 +12,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
 
@@ -23,6 +24,7 @@ public class LoreCommand implements CommandExecutor, Listener {
     private final JavaPlugin plugin;
     public static boolean isLoreEnabled;
     public static String[] leaders = {};
+    private BukkitRunnable bukkitRunnable;
 
     public LoreCommand(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -63,17 +65,30 @@ public class LoreCommand implements CommandExecutor, Listener {
         if (isLoreEnabled()) {
             Bukkit.broadcastMessage(ChatColor.GREEN + "Lore mode is geactiveerd door " + player.getName() + " zorg ervoor dat je de proximity chat gebruikt.");
             for (Player allPlayers : Bukkit.getOnlinePlayers()) {
-                allPlayers.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN, 1, 1);
+                allPlayers.playSound(allPlayers.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN, 1, 1);
             }
 
-            Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-                for (Player allPlayers : Bukkit.getOnlinePlayers()) {
-                    allPlayers.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.GREEN + "Lore mode staat aan."));
+            bukkitRunnable = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        p.spigot().sendMessage(
+                                ChatMessageType.ACTION_BAR,
+                                new TextComponent(ChatColor.GREEN + "Lore mode staat aan.")
+                        );
+                    }
                 }
-            }, 0L, 20L);
+            };
+
+            bukkitRunnable.runTaskTimer(plugin, 0L, 20L);
 
         } else {
             Bukkit.broadcastMessage(ChatColor.RED + "Lore mode is uitgezet door " + player.getName());
+
+            if (bukkitRunnable != null) {
+                bukkitRunnable.cancel();
+                bukkitRunnable = null;
+            }
         }
 
         return true;

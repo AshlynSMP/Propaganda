@@ -35,10 +35,8 @@ public class SignChangeListener implements Listener {
 
                 boolean enabled = plugin.getConfig().getBoolean("tower-" + towerName, true);
                 if (enabled) {
-                    //player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
                     event.setLine(3, ChatColor.GREEN + "Online");
                 } else {
-                    //player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 1.0f);
                     event.setLine(3, ChatColor.RED + "Offline");
                 }
             }
