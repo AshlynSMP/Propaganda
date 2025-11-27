@@ -8,7 +8,6 @@ import nl.ashlyn.propaganda.listeners.*;
 import nl.ashlyn.propaganda.utils.Logger;
 import nl.ashlyn.propaganda.voicechat.VoiceChatPlugin;
 import org.bukkit.ChatColor;
-import org.bukkit.WorldBorder;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -65,6 +64,7 @@ public final class Propaganda extends JavaPlugin {
         registerListener(new PlayerInteractListener(this), this);
         registerListener(new SignChangeListener(this), this);
         registerListener(new LoreCommand(this), this);
+        registerListener(new PlayerMoveListener(this), this);
     }
 
     private void registerCommand(String name, CommandExecutor executor)
