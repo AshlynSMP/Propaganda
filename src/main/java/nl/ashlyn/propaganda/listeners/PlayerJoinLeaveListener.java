@@ -2,6 +2,7 @@ package nl.ashlyn.propaganda.listeners;
 
 import net.md_5.bungee.api.ChatColor;
 import nl.ashlyn.propaganda.commands.LoreCommand;
+import nl.ashlyn.propaganda.utils.Logger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,15 @@ public class PlayerJoinLeaveListener implements Listener {
 
     public PlayerJoinLeaveListener(JavaPlugin plugin) {
         this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onPlayerFirstJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+
+        if (!player.hasPlayedBefore()) {
+            player.sendTitle(ChatColor.DARK_PURPLE + "Ashlyn SMP Title", ChatColor.LIGHT_PURPLE + "If needed extra info goes here", 10, 70, 20);
+        }
     }
 
     @EventHandler

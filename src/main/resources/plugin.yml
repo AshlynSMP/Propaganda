@@ -1,15 +1,16 @@
 name: Propaganda
 version: '${project.version}'
 main: nl.ashlyn.propaganda.Propaganda
+description: Core plugin voor de AshlynSMP server.
 api-version: 1.21
 authors: [ ntnt ]
-depend: [ voicechat ]
+depend: [ voicechat, ProtocolLib ]
 commands:
   wapenstilstand:
-    description: Zet pvp uit.
     usage: /wapenstilstand
   broadcast:
     aliases: [bc]
   lore:
-    description: Zet lore mode aan.
     usage: /lore
+  credits:
+    usage: /credits

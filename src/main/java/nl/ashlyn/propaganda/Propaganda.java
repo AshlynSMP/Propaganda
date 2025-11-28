@@ -2,9 +2,11 @@ package nl.ashlyn.propaganda;
 
 import de.maxhenkel.voicechat.api.BukkitVoicechatService;
 import nl.ashlyn.propaganda.commands.BroadcastCommand;
+import nl.ashlyn.propaganda.commands.CreditsCommand;
 import nl.ashlyn.propaganda.commands.LoreCommand;
 import nl.ashlyn.propaganda.commands.WapenstilstandCommand;
 import nl.ashlyn.propaganda.listeners.*;
+import nl.ashlyn.propaganda.nms.Credits;
 import nl.ashlyn.propaganda.utils.Logger;
 import nl.ashlyn.propaganda.voicechat.VoiceChatPlugin;
 import org.bukkit.ChatColor;
@@ -24,6 +26,7 @@ public final class Propaganda extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        Credits.init();
         saveDefaultConfig();
         registerCommands();
         registerListeners();
@@ -53,6 +56,7 @@ public final class Propaganda extends JavaPlugin {
         registerCommand("wapenstilstand", new WapenstilstandCommand(this));
         registerCommand("broadcast", new BroadcastCommand());
         registerCommand("lore", new LoreCommand(this));
+        registerCommand("credits", new CreditsCommand(this));
     }
 
     private void registerListeners()
