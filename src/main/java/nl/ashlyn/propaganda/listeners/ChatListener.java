@@ -29,7 +29,7 @@ public class ChatListener implements Listener {
             return;
         }
 
-        if (!t1 || !t2) {
+        if (!t1 && LoreCommand.isLoreEnabled || !t2 && LoreCommand.isLoreEnabled) {
             event.setMessage(TextScrambler.scrambleLetters(event.getMessage()));
         }
 

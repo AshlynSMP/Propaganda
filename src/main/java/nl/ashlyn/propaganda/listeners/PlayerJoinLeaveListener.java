@@ -22,17 +22,22 @@ public class PlayerJoinLeaveListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerFirstJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-
-        if (!player.hasPlayedBefore()) {
-            player.sendTitle(ChatColor.DARK_PURPLE + "Ashlyn SMP Title", ChatColor.LIGHT_PURPLE + "If needed extra info goes here", 10, 70, 20);
-        }
-    }
-
-    @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        String[] welcomeMessage = {
+                "",
+                "",
+                "",
+                "ッ",
+                "",
+                ChatColor.LIGHT_PURPLE + "  Welkom terug " + ChatColor.YELLOW + player.getName(),
+        };
+
+        if(player.hasPlayedBefore()) {
+            player.sendMessage(welcomeMessage);
+        } else {
+            player.sendTitle(ChatColor.DARK_PURPLE + "Ashlyn SMP Title", ChatColor.LIGHT_PURPLE + "If needed extra info goes here", 10, 70, 20);
+        }
 
         event.setJoinMessage(ChatColor.GREEN + "[+] " + player.getName());
 
