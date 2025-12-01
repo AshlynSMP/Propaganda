@@ -1,5 +1,6 @@
 package nl.ashlyn.propaganda.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -68,7 +69,9 @@ public class PlayerInteractListener implements Listener {
                     if (!t1 && !t2) {
                         plugin.getServer().broadcastMessage(ChatColor.RED + "Allebei de radio torens zijn offline! Je kunt nu de radio niet meer gebruiken!");
                         for (Player p : plugin.getServer().getOnlinePlayers()) {
-                            p.playSound(p.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 1.0f);
+                            // Shadow color not in sendTitle
+                            plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "title @a title {\"text\":\"浮\uDAC0\uDC00\uDAC0\uDC00\uDAC0\uDC00\uDAFF\uDFFF漈\",\"shadow_color\":false}");
+                            p.playSound(p.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 1.0f);;
                         }
                     }
                 }

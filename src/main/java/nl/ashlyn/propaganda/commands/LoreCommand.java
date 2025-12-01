@@ -65,6 +65,8 @@ public class LoreCommand implements CommandExecutor, Listener {
         if (isLoreEnabled()) {
             Bukkit.broadcastMessage(ChatColor.GREEN + "Lore mode is geactiveerd door " + player.getName() + " zorg ervoor dat je de proximity chat gebruikt.");
             for (Player allPlayers : Bukkit.getOnlinePlayers()) {
+                // Shadow color not in sendTitle
+                plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "title @a title {\"text\":\"ひ\uDAC0\uDC00\uDAC0\uDC00\uDAC0\uDC00\uDAFF\uDFFFゎ\",\"shadow_color\":false}");
                 allPlayers.playSound(allPlayers.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN, 1, 1);
             }
 

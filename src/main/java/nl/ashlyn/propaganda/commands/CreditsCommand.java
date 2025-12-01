@@ -37,6 +37,8 @@ public class CreditsCommand implements CommandExecutor {
             }
             Credits.showCredits(player);
         } else {
+            // TODO: Implement luckperms api
+            plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp group default permission unset voicechat.speak");
             for (Player player : Bukkit.getOnlinePlayers()) {
                 Credits.showCredits(player);
             }

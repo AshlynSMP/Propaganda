@@ -2,13 +2,15 @@ package nl.ashlyn.propaganda.listeners;
 
 import net.md_5.bungee.api.ChatColor;
 import nl.ashlyn.propaganda.commands.LoreCommand;
-import nl.ashlyn.propaganda.utils.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 /**
  * Created by Ashlyn on 12/10/2024
@@ -36,7 +38,8 @@ public class PlayerJoinLeaveListener implements Listener {
         if(player.hasPlayedBefore()) {
             player.sendMessage(welcomeMessage);
         } else {
-            player.sendTitle(ChatColor.DARK_PURPLE + "Ashlyn SMP Title", ChatColor.LIGHT_PURPLE + "If needed extra info goes here", 10, 70, 20);
+            // Shadow color not in sendTitle
+            plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "title " + player.getName() + " title {\"text\":\"氏\uDAC0\uDC00\uDAC0\uDC00\uDAC0\uDC00\uDAFF\uDFFF氐\",\"shadow_color\":false}");
         }
 
         event.setJoinMessage(ChatColor.GREEN + "[+] " + player.getName());
@@ -52,6 +55,22 @@ public class PlayerJoinLeaveListener implements Listener {
 
         if (!t1 && !t2 && LoreCommand.isLoreEnabled) {
             player.sendMessage(ChatColor.RED + "Allebei de radio torens zijn offline! Je kunt de radio nu niet gebruiken!");
+        }
+
+        Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+        Team opTeam = sb.getTeam("opteam");
+
+        if (opTeam == null) {
+            opTeam = sb.registerNewTeam("opteam");
+            opTeam.setPrefix("ん ");
+        }
+
+        if (player.isOp()) {
+            if (!opTeam.getEntries().contains(player.getName())) {
+                opTeam.addEntry(player.getName());
+            }
+        } else {
+            opTeam.removeEntry(player.getName());
         }
     }
 
