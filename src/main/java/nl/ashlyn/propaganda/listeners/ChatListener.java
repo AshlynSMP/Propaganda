@@ -43,15 +43,18 @@ public class ChatListener implements Listener {
 
         if (LoreCommand.isLoreEnabled) {
             event.setFormat(ChatColor.GOLD + "[Radio] " + player.getName() + " >>> " + ChatColor.RESET + message);
+        } else {
+
+            Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+            for (Team team : sb.getTeams()) {
+                if (team.hasEntry(player.getName())) {
+                    prefix = team.getPrefix();
+                    break;
+                }
+            }
+
+            event.setFormat(prefix + player.getName() + ChatColor.RESET + ": " + message);
         }
 
-        Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
-        Team opTeam = sb.getTeam("opteam");
-
-        if (opTeam != null && opTeam.hasEntry(player.getName())) {
-            prefix = opTeam.getPrefix();
-        }
-
-        event.setFormat(prefix + player.getName() + ChatColor.RESET + ": " + message);
     }
 }
