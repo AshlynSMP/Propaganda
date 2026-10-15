@@ -1,7 +1,4 @@
 pvp-disabled: false
 lore-enabled: false
-tower-oost: true
-tower-west: true
 leaders:
   - 'ntnt'
-  - 'TheBigCheese_420'

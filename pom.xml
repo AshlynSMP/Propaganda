@@ -6,7 +6,7 @@
 
     <groupId>nl.ashlyn</groupId>
     <artifactId>Propaganda</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.1</version>
     <packaging>jar</packaging>
 
     <name>Propaganda</name>
@@ -62,10 +62,6 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
-        <repository>
-            <id>maxhenkel</id>
-            <url>https://maven.maxhenkel.de/repository/public</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -73,18 +69,6 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.21-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.maxhenkel.voicechat</groupId>
-            <artifactId>voicechat-api</artifactId>
-            <version>2.6.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.dmulloy2</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>5.4.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

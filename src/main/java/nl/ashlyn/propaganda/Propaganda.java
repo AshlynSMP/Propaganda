@@ -1,14 +1,9 @@
 package nl.ashlyn.propaganda;
 
-import de.maxhenkel.voicechat.api.BukkitVoicechatService;
-import nl.ashlyn.propaganda.commands.BroadcastCommand;
-import nl.ashlyn.propaganda.commands.CreditsCommand;
 import nl.ashlyn.propaganda.commands.LoreCommand;
 import nl.ashlyn.propaganda.commands.WapenstilstandCommand;
 import nl.ashlyn.propaganda.listeners.*;
-import nl.ashlyn.propaganda.nms.Credits;
 import nl.ashlyn.propaganda.utils.Logger;
-import nl.ashlyn.propaganda.voicechat.VoiceChatPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -26,17 +21,9 @@ public final class Propaganda extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        Credits.init();
         saveDefaultConfig();
         registerCommands();
         registerListeners();
-
-        BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
-        if (service != null) {
-            VoiceChatPlugin voicechatPlugin = new VoiceChatPlugin();
-            service.registerPlugin(voicechatPlugin);
-            Logger.log("Successfully registered propaganda in voicechat");
-        }
 
         Logger.log(ChatColor.RED + "+=========================================+" + ChatColor.RESET);
         Logger.log(ChatColor.RED + "Propaganda Initiated!" + ChatColor.RESET + ChatColor.RED + " (Build: v" + getDescription().getVersion() + ")" + ChatColor.RESET);
@@ -54,19 +41,14 @@ public final class Propaganda extends JavaPlugin {
     private void registerCommands()
     {
         registerCommand("wapenstilstand", new WapenstilstandCommand(this));
-        registerCommand("broadcast", new BroadcastCommand());
         registerCommand("lore", new LoreCommand(this));
-        registerCommand("credits", new CreditsCommand(this));
     }
 
     private void registerListeners()
     {
-        registerListener(new ChatListener(this), this);
         registerListener(new PvPListener(this), this);
         registerListener(new PlayerJoinLeaveListener(this), this);
         registerListener(new PlayerDeathListener(this), this);
-        registerListener(new PlayerInteractListener(this), this);
-        registerListener(new SignChangeListener(this), this);
         registerListener(new LoreCommand(this), this);
         registerListener(new PlayerMoveListener(this), this);
     }
