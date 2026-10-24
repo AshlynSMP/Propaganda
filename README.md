@@ -16,6 +16,7 @@ Propaganda is a comprehensive Spigot/Paper plugin designed specifically for the 
 - **Custom Lore System**: Toggle-able lore functionality for immersive gameplay
 - **Join/Leave Events**: Custom messages and the op team prefix on player join/leave
 - **Death Events**: Custom death message
+- **Nether Toggle**: Leaders can close the nether with `/nether`; portals stop working on the way in
 - **World Border Wraparound**: Players near the border are teleported to the opposite side
 
 ## Commands
@@ -24,6 +25,7 @@ Propaganda is a comprehensive Spigot/Paper plugin designed specifically for the 
 |---------|---------|-------------|
 | `/wapenstilstand` | - | Toggle ceasefire/PvP mode |
 | `/lore` | - | Manage lore system |
+| `/nether` | - | Open or close the nether (leaders only) |
 
 ## Configuration
 
@@ -31,6 +33,7 @@ The plugin includes a `config.yml` with the following options:
 
 ```yaml
 pvp-disabled: false      # Enable/disable PvP globally
+nether-disabled: false   # Close the nether, players can still leave it
 ```
 
 Lore mode and the leaders live in [Core](https://github.com/AshlynSMP/Core)'s config, so Radio and the website see when `/lore` turns it on.

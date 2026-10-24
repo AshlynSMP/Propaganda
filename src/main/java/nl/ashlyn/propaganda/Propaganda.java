@@ -1,6 +1,7 @@
 package nl.ashlyn.propaganda;
 
 import nl.ashlyn.propaganda.commands.LoreCommand;
+import nl.ashlyn.propaganda.commands.NetherCommand;
 import nl.ashlyn.propaganda.commands.WapenstilstandCommand;
 import nl.ashlyn.propaganda.listeners.*;
 import nl.ashlyn.propaganda.utils.Logger;
@@ -42,6 +43,7 @@ public final class Propaganda extends JavaPlugin {
     {
         registerCommand("wapenstilstand", new WapenstilstandCommand(this));
         registerCommand("lore", new LoreCommand(this));
+        registerCommand("nether", new NetherCommand(this));
     }
 
     private void registerListeners()
@@ -51,6 +53,7 @@ public final class Propaganda extends JavaPlugin {
         registerListener(new PlayerDeathListener(this), this);
         registerListener(new LoreCommand(this), this);
         registerListener(new PlayerMoveListener(this), this);
+        registerListener(new NetherListener(), this);
     }
 
     private void registerCommand(String name, CommandExecutor executor)

@@ -6,7 +6,7 @@
 
     <groupId>nl.ashlyn</groupId>
     <artifactId>Propaganda</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <packaging>jar</packaging>
 
     <name>Propaganda</name>
@@ -78,7 +78,7 @@
         <dependency>
             <groupId>com.github.AshlynSMP</groupId>
             <artifactId>Core</artifactId>
-            <version>0.0.4</version>
+            <version>1.1.6</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

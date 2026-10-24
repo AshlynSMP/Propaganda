@@ -10,3 +10,5 @@ commands:
     usage: /wapenstilstand
   lore:
     usage: /lore
+  nether:
+    usage: /nether
