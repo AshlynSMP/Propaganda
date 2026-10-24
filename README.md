@@ -31,15 +31,14 @@ The plugin includes a `config.yml` with the following options:
 
 ```yaml
 pvp-disabled: false      # Enable/disable PvP globally
-lore-enabled: false      # Enable/disable lore system
-leaders:                 # Server leaders/admins
-  - 'ntnt'
 ```
+
+Lore mode and the leaders live in [Core](https://github.com/AshlynSMP/Core)'s config, so Radio and the website see when `/lore` turns it on.
 
 ## Building from Source
 
 ### Prerequisites
-- Java 16 or higher
+- Java 21 or higher
 - Maven 3.6+
 
 ### Build Steps
@@ -59,7 +58,8 @@ mvn clean package
 
 - **Minecraft Version**: 1.21+
 - **Server Software**: Spigot/Paper 1.21+
-- **Java Version**: 16+
+- **Java Version**: 21+
+- **Plugins**: [Core](https://github.com/AshlynSMP/Core)
 
 ## License
 

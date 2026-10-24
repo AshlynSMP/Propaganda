@@ -4,6 +4,7 @@ main: nl.ashlyn.propaganda.Propaganda
 description: Core plugin voor de AshlynSMP server.
 api-version: 1.21
 authors: [ ntnt ]
+depend: [ Core ]
 commands:
   wapenstilstand:
     usage: /wapenstilstand

@@ -1,7 +1,7 @@
 package nl.ashlyn.propaganda.listeners;
 
 import net.md_5.bungee.api.ChatColor;
-import nl.ashlyn.propaganda.commands.LoreCommand;
+import nl.ashlyn.core.api.CoreConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,7 +44,7 @@ public class PlayerJoinLeaveListener implements Listener {
 
         event.setJoinMessage(ChatColor.GREEN + "[+] " + player.getName());
 
-        if (LoreCommand.isLoreEnabled) {
+        if (CoreConfig.isLoreEnabled()) {
             player.sendMessage(ChatColor.RED + "+=========================================+");
             player.sendMessage(ChatColor.RED + "Lore mode is actief. Blijf in je rol!");
             player.sendMessage(ChatColor.RED + "+=========================================+");
