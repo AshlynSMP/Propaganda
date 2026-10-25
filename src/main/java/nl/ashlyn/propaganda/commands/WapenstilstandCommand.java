@@ -1,6 +1,7 @@
 package nl.ashlyn.propaganda.commands;
 
 import net.md_5.bungee.api.ChatColor;
+import nl.ashlyn.core.api.CoreConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -45,7 +46,7 @@ public class WapenstilstandCommand implements CommandExecutor, Listener {
 
         Player player = (Player) sender;
 
-        if (!player.getName().equalsIgnoreCase("ntnt") && !player.getName().equalsIgnoreCase("TheBigCheese_420") && !player.isOp()) {
+        if (!CoreConfig.isLeader(player.getName()) && !player.isOp()) {
             player.sendMessage(ChatColor.RED + "Deze command kan alleen gebruikt worden door de leiders.");
             return true;
         }

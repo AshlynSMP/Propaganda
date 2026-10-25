@@ -10,20 +10,23 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Created by Ashlyn on 12/10/2024
  */
-public class LoreCommand implements CommandExecutor, Listener {
+public class LoreCommand implements CommandExecutor {
 
     private final JavaPlugin plugin;
     private BukkitRunnable bukkitRunnable;
 
     public LoreCommand(JavaPlugin plugin) {
         this.plugin = plugin;
+
+        if (CoreConfig.isLoreEnabled()) {
+            startActionBar();
+        }
     }
 
     public void toggleLore() {
@@ -49,35 +52,42 @@ public class LoreCommand implements CommandExecutor, Listener {
 
         if (CoreConfig.isLoreEnabled()) {
             Bukkit.broadcastMessage(ChatColor.GREEN + "Lore mode is geactiveerd door " + player.getName() + " zorg ervoor dat je de proximity chat gebruikt.");
+            plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "title @a title {\"text\":\"ひ󀀀󀀀󀀀󏿿ゎ\",\"shadow_color\":false}");
             for (Player allPlayers : Bukkit.getOnlinePlayers()) {
-                // Shadow color not in sendTitle
-                plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "title @a title {\"text\":\"ひ\uDAC0\uDC00\uDAC0\uDC00\uDAC0\uDC00\uDAFF\uDFFFゎ\",\"shadow_color\":false}");
                 allPlayers.playSound(allPlayers.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN, 1, 1);
             }
 
-            bukkitRunnable = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        p.spigot().sendMessage(
-                                ChatMessageType.ACTION_BAR,
-                                new TextComponent(ChatColor.GREEN + "Lore mode staat aan.")
-                        );
-                    }
-                }
-            };
-
-            bukkitRunnable.runTaskTimer(plugin, 0L, 20L);
-
+            startActionBar();
         } else {
             Bukkit.broadcastMessage(ChatColor.RED + "Lore mode is uitgezet door " + player.getName());
-
-            if (bukkitRunnable != null) {
-                bukkitRunnable.cancel();
-                bukkitRunnable = null;
-            }
+            stopActionBar();
         }
 
         return true;
+    }
+
+    private void startActionBar() {
+        stopActionBar();
+
+        bukkitRunnable = new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.spigot().sendMessage(
+                            ChatMessageType.ACTION_BAR,
+                            new TextComponent(ChatColor.GREEN + "Lore mode staat aan.")
+                    );
+                }
+            }
+        };
+
+        bukkitRunnable.runTaskTimer(plugin, 0L, 20L);
+    }
+
+    private void stopActionBar() {
+        if (bukkitRunnable != null) {
+            bukkitRunnable.cancel();
+            bukkitRunnable = null;
+        }
     }
 }
