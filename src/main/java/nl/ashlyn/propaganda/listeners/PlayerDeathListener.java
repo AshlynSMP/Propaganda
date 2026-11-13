@@ -22,6 +22,9 @@ public class PlayerDeathListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        event.setDeathMessage(ChatColor.RED + "[✞] " + player.getName());
+        String cause = event.getDeathMessage();
+        if (cause == null || cause.isEmpty()) cause = player.getName();
+
+        event.setDeathMessage(ChatColor.RED + "[✞] " + ChatColor.stripColor(cause));
     }
 }
