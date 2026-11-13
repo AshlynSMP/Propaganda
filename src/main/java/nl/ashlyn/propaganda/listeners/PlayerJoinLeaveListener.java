@@ -1,7 +1,7 @@
 package nl.ashlyn.propaganda.listeners;
 
 import net.md_5.bungee.api.ChatColor;
-import nl.ashlyn.propaganda.commands.LoreCommand;
+import nl.ashlyn.core.api.CoreConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,17 +44,10 @@ public class PlayerJoinLeaveListener implements Listener {
 
         event.setJoinMessage(ChatColor.GREEN + "[+] " + player.getName());
 
-        if (LoreCommand.isLoreEnabled) {
+        if (CoreConfig.isLoreEnabled()) {
             player.sendMessage(ChatColor.RED + "+=========================================+");
             player.sendMessage(ChatColor.RED + "Lore mode is actief. Blijf in je rol!");
             player.sendMessage(ChatColor.RED + "+=========================================+");
-        }
-
-        boolean t1 = plugin.getConfig().getBoolean("tower-oost", true);
-        boolean t2 = plugin.getConfig().getBoolean("tower-west", true);
-
-        if (!t1 && !t2 && LoreCommand.isLoreEnabled) {
-            player.sendMessage(ChatColor.RED + "Allebei de radio torens zijn offline! Je kunt de radio nu niet gebruiken!");
         }
 
         Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();

@@ -4,13 +4,11 @@ main: nl.ashlyn.propaganda.Propaganda
 description: Core plugin voor de AshlynSMP server.
 api-version: 1.21
 authors: [ ntnt ]
-depend: [ voicechat, ProtocolLib ]
+depend: [ Core ]
 commands:
   wapenstilstand:
     usage: /wapenstilstand
-  broadcast:
-    aliases: [bc]
   lore:
     usage: /lore
-  credits:
-    usage: /credits
+  nether:
+    usage: /nether
